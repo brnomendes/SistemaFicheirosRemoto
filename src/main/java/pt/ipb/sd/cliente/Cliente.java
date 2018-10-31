@@ -1,4 +1,4 @@
-package pt.ipb.ds.cliente;
+package pt.ipb.sd.cliente;
 
 public class Cliente {
 
