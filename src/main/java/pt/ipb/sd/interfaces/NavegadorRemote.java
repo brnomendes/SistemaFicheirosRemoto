@@ -2,13 +2,12 @@ package pt.ipb.sd.interfaces;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.List;
 
 public interface NavegadorRemote extends Remote {
 
     public String cd(String diretoria) throws RemoteException;
 
-    public List<String> ls() throws RemoteException;
+    public String[] ls() throws RemoteException;
 
     public boolean mkdir(String nome) throws RemoteException;
 
