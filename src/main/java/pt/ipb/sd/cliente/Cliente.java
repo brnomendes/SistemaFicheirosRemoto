@@ -5,6 +5,8 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
+import java.util.Arrays;
+
 import pt.ipb.sd.interfaces.NavegadorRemote;
 import pt.ipb.sd.interfaces.SessaoRemote;
 
@@ -31,6 +33,7 @@ public class Cliente {
             SessaoRemote sessao = (SessaoRemote) Naming.lookup(NAME);
             NavegadorRemote nr = sessao.login();
 
+            System.out.println(Arrays.toString(nr.ls()));
             new ClienteGUI(nr).setVisible(true);
 
         } catch (RemoteException | MalformedURLException | NotBoundException e) {

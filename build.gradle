@@ -29,7 +29,15 @@ dependencies {
 }
 
 task server(type: JavaExec) {
+    description = 'Aplicação do servidor'
     classpath = sourceSets.main.runtimeClasspath
     main = 'pt.ipb.sd.servidor.Servidor'
-    args server
+    args registryAddress
+}
+
+task client(type: JavaExec) {
+    description = 'Aplicação do cliente'
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'pt.ipb.sd.cliente.Cliente'
+    args registryAddress
 }
