@@ -26,6 +26,15 @@ public class ClienteGUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
 
+        this.btnAbrir.setOpaque(true);
+        this.btnAtualizar.setOpaque(true);
+        this.btnDelFicheiro.setOpaque(true);
+        this.btnDelPasta.setOpaque(true);
+        this.btnNovaPasta.setOpaque(true);
+        this.btnNovoFicheiro.setOpaque(true);
+        this.btnSalvar.setOpaque(true);
+        this.btnVoltar.setOpaque(true);
+
         this.extensoesEditaveis = new String[]{"txt", "json", "py", "java", "sql", "md", "sh", "conf", "php", "html", "css", "js"};
         this.txtEditarDefault = "Selecione um dos seguintes ficheiros para editar:\n" + Arrays.toString(this.extensoesEditaveis);
         this.mudarDiretoria(this.diretoriaAtual);
