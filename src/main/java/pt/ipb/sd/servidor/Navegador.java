@@ -10,13 +10,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.List;
 
 import pt.ipb.sd.interfaces.NavegadorRemote;
 
 public class Navegador extends UnicastRemoteObject implements NavegadorRemote {
 
-    private String diretoriaAtual = File.separator;
+    private String diretoriaAtual = System.getProperty("user.home");
 
     public Navegador() throws RemoteException {
         super();
@@ -48,43 +47,48 @@ public class Navegador extends UnicastRemoteObject implements NavegadorRemote {
 
     @Override
     public boolean mkdir(String nome) throws RemoteException {
-        Path path = Paths.get(nome);
+        Path path = Paths.get(this.diretoriaAtual + File.separator + nome);
         try {
             Files.createDirectory(path);
             return true;
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         return false;
     }
 
     @Override
     public boolean touch(String nome) throws RemoteException {
-        Path path = Paths.get(nome);
-        if(Files.exists(path)) return false;
+        Path path = Paths.get(this.diretoriaAtual + File.separator + nome);
+        if (Files.exists(path)) {
+            return false;
+        }
 
         File file = new File(String.valueOf(path));
         try {
             return file.createNewFile();
         } catch (IOException e) {
-            e.printStackTrace();
-            System.err.println("Falha ao criar o ficheiro");
+            System.out.println(e.getMessage());
         }
         return false;
     }
 
     @Override
     public boolean rm(String nome) throws RemoteException {
-        Path path = Paths.get(nome);
-        if(Files.notExists(path) || !Files.isRegularFile(path)) return false;
+        Path path = Paths.get(this.diretoriaAtual + File.separator + nome);
+        if (Files.notExists(path) || !Files.isRegularFile(path)) {
+            return false;
+        }
         File file = new File(String.valueOf(path));
         return file.delete();
     }
 
     @Override
     public boolean rmdir(String nome) throws RemoteException {
-        Path path = Paths.get(nome);
-        if(Files.notExists(path) || !Files.isDirectory(path)) return false;
+        Path path = Paths.get(this.diretoriaAtual + File.separator + nome);
+        if (Files.notExists(path) || !Files.isDirectory(path)) {
+            return false;
+        }
         File file = new File(String.valueOf(path));
         return file.delete();
     }
@@ -94,42 +98,56 @@ public class Navegador extends UnicastRemoteObject implements NavegadorRemote {
         File ficheiro = new File(this.diretoriaAtual + File.separator + nome);
 
         if (ficheiro.exists() && ficheiro.isFile()) {
-            return "Tamanho: " + ficheiro.length();
+            try {
+                String probe = Files.probeContentType(Paths.get(ficheiro.getAbsolutePath()));
+                if (probe != null) {
+                    return Navegador.tamanhoLegivel(ficheiro.length()) + " | " + probe;
+                }
+            } catch (IOException ex) {
+
+            }
+            return "Tamanho: " + Navegador.tamanhoLegivel(ficheiro.length());
         } else {
-            return "Diretório";
+            return "Dir";
         }
     }
 
     @Override
     public String cat(String nome) throws RemoteException {
-        Path path = Paths.get(nome);
+        Path path = Paths.get(this.diretoriaAtual + File.separator + nome);
         StringBuilder output = new StringBuilder();
         try {
-            List<String> lines = Files.readAllLines(path);
-            lines.forEach(output::append);
+            for (String line : Files.readAllLines(path)) {
+                output.append(line);
+                output.append(System.lineSeparator());
+            }
             return output.toString();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         return output.toString();
+
     }
 
     @Override
     public boolean write(String nome, String conteudo) throws RemoteException {
-        Path path = Paths.get(nome);
-        if(Files.notExists(path) || !Files.isRegularFile(path)) return false;
+        Path path = Paths.get(this.diretoriaAtual + File.separator + nome);
+        if (Files.notExists(path) || !Files.isRegularFile(path)) {
+            return false;
+        }
         File file = new File(String.valueOf(path));
 
-        if(!file.canWrite()) return false;
+        if (!file.canWrite()) {
+            return false;
+        }
 
-        try {
-            PrintStream ps = new PrintStream(file);
+        try (PrintStream ps = new PrintStream(file)) {
             ps.append(conteudo);
             ps.flush();
             ps.close();
             return true;
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
 
         return false;
@@ -138,5 +156,15 @@ public class Navegador extends UnicastRemoteObject implements NavegadorRemote {
     @Override
     public void sair() throws RemoteException {
         unexportObject(this, true);
+    }
+
+    public static String tamanhoLegivel(long bytes) {
+        int unit = 1000;
+        if (bytes < unit) {
+            return bytes + " B";
+        }
+        int exp = (int) (Math.log(bytes) / Math.log(unit));
+        String pre = String.valueOf(("kMGTPE").charAt(exp - 1));
+        return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
     }
 }
