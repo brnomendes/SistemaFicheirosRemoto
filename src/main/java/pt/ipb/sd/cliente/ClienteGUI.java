@@ -259,7 +259,7 @@ public class ClienteGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void listFicheirosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listFicheirosValueChanged
-        if (!evt.getValueIsAdjusting()) {
+        if (!evt.getValueIsAdjusting() && this.listFicheiros.getSelectedValue() != null) {
             try {
                 String nome = this.listFicheiros.getSelectedValue();
                 String informacao = this.nr.file(nome);
