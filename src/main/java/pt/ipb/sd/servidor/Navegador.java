@@ -101,12 +101,12 @@ public class Navegador extends UnicastRemoteObject implements NavegadorRemote {
             try {
                 String probe = Files.probeContentType(Paths.get(ficheiro.getAbsolutePath()));
                 if (probe != null) {
-                    return Navegador.tamanhoLegivel(ficheiro.length()) + " | " + probe;
+                    return Navegador.tamanhoLegivel(ficheiro.length()) + "|" + probe;
                 }
             } catch (IOException ex) {
 
             }
-            return "Tamanho: " + Navegador.tamanhoLegivel(ficheiro.length());
+            return Navegador.tamanhoLegivel(ficheiro.length()) + "|";
         } else {
             return "Dir";
         }

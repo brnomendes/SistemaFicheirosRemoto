@@ -45,12 +45,13 @@ public class ClienteGUI extends javax.swing.JFrame {
         btnAbrir = new javax.swing.JButton();
         btnDelPasta = new javax.swing.JButton();
         btnDelFicheiro = new javax.swing.JButton();
-        txtInformacao = new javax.swing.JTextField();
+        txtTamanho = new javax.swing.JTextField();
         editarPanel = new javax.swing.JScrollPane();
         txtEditar = new javax.swing.JTextArea();
         btnSalvar = new javax.swing.JButton();
         btnNovaPasta = new javax.swing.JButton();
         btnNovoFicheiro = new javax.swing.JButton();
+        txtTipo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(158, 158, 158));
@@ -98,7 +99,6 @@ public class ClienteGUI extends javax.swing.JFrame {
         btnAbrir.setText("Abrir Pasta");
         btnAbrir.setBorderPainted(false);
         btnAbrir.setEnabled(false);
-        btnAbrir.setPreferredSize(new java.awt.Dimension(100, 27));
         btnAbrir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAbrirActionPerformed(evt);
@@ -128,10 +128,10 @@ public class ClienteGUI extends javax.swing.JFrame {
             }
         });
 
-        txtInformacao.setEditable(false);
-        txtInformacao.setBackground(new java.awt.Color(255, 255, 255));
-        txtInformacao.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        txtInformacao.setForeground(new java.awt.Color(38, 50, 56));
+        txtTamanho.setEditable(false);
+        txtTamanho.setBackground(new java.awt.Color(255, 255, 255));
+        txtTamanho.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        txtTamanho.setForeground(new java.awt.Color(38, 50, 56));
 
         txtEditar.setColumns(20);
         txtEditar.setForeground(new java.awt.Color(38, 50, 56));
@@ -172,6 +172,11 @@ public class ClienteGUI extends javax.swing.JFrame {
             }
         });
 
+        txtTipo.setEditable(false);
+        txtTipo.setBackground(new java.awt.Color(255, 255, 255));
+        txtTipo.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        txtTipo.setForeground(new java.awt.Color(38, 50, 56));
+
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
         panelLayout.setHorizontalGroup(
@@ -194,15 +199,20 @@ public class ClienteGUI extends javax.swing.JFrame {
                         .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(editarPanel, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtInformacao, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelLayout.createSequentialGroup()
-                                    .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(txtTamanho, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(btnAtualizar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnAbrir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnDelPasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnDelFicheiro, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(panelLayout.createSequentialGroup()
+                                            .addComponent(btnAbrir)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(btnDelPasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(btnDelFicheiro, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(0, 0, Short.MAX_VALUE))
+                                        .addComponent(txtTipo))))
                             .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -218,11 +228,13 @@ public class ClienteGUI extends javax.swing.JFrame {
                     .addGroup(panelLayout.createSequentialGroup()
                         .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAbrir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAbrir)
                             .addComponent(btnDelPasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnDelFicheiro))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtInformacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtTamanho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(editarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(listPanel))
@@ -388,7 +400,8 @@ public class ClienteGUI extends javax.swing.JFrame {
     private javax.swing.JPanel panel;
     private javax.swing.JTextField txtDiretoria;
     private javax.swing.JTextArea txtEditar;
-    private javax.swing.JTextField txtInformacao;
+    private javax.swing.JTextField txtTamanho;
+    private javax.swing.JTextField txtTipo;
     // End of variables declaration//GEN-END:variables
 
     private void mudarDiretoria(String nova) {
@@ -409,7 +422,8 @@ public class ClienteGUI extends javax.swing.JFrame {
             this.btnSalvar.setEnabled(false);
             this.btnDelFicheiro.setEnabled(false);
             this.btnDelPasta.setEnabled(false);
-            this.txtInformacao.setText("");
+            this.txtTamanho.setText("");
+            this.txtTipo.setText("");
 
             this.txtEditar.setText(this.txtEditarDefault);
             this.txtEditar.setEnabled(false);
@@ -420,7 +434,11 @@ public class ClienteGUI extends javax.swing.JFrame {
     }
 
     private void ficheiroSelecionado(String informacao, String nome) {
-        this.txtInformacao.setText(informacao);
+        String[] i = informacao.split("\\|");
+        this.txtTamanho.setText(i[0]);
+        if (i.length > 1) {
+            this.txtTipo.setText(i[1]);
+        }
         this.btnDelFicheiro.setEnabled(true);
 
         this.btnAbrir.setEnabled(false);
@@ -456,7 +474,8 @@ public class ClienteGUI extends javax.swing.JFrame {
         this.btnDelFicheiro.setEnabled(false);
         this.txtEditar.setEnabled(false);
         this.txtEditar.setText(this.txtEditarDefault);
-        this.txtInformacao.setText("");
+        this.txtTamanho.setText("");
+        this.txtTipo.setText("");
     }
 
 }
