@@ -27,8 +27,8 @@ public class Cliente {
         }
 
         try {
-            Registry registry = LocateRegistry.getRegistry(args[0], PORT);
-            SessaoRemote sessao = (SessaoRemote) registry.lookup(NAME);
+            Registry registry = LocateRegistry.getRegistry(args[0], Cliente.PORT);
+            SessaoRemote sessao = (SessaoRemote) registry.lookup(Cliente.NAME);
             NavegadorRemote nr = sessao.login();
 
             new ClienteGUI(nr).setVisible(true);

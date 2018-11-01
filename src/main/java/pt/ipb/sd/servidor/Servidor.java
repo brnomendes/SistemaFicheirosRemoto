@@ -1,7 +1,5 @@
 package pt.ipb.sd.servidor;
 
-import java.net.MalformedURLException;
-import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -26,11 +24,11 @@ public class Servidor {
         }
 
         try {
-            Registry registry = LocateRegistry.createRegistry(1099);
+            Registry registry = LocateRegistry.createRegistry(Servidor.PORT);
             Sessao sessao = new Sessao();
-            registry.rebind(NAME, sessao);
-            System.out.println("Servidor RMI ligado em: " + args[0] + ":" + PORT);
-            System.out.println("\t|- Nome registrado: " + NAME);
+            registry.rebind(Servidor.NAME, sessao);
+            System.out.println("Servidor RMI ligado em: " + args[0] + ":" + Servidor.PORT);
+            System.out.println("\t|- Nome registrado: " + Servidor.NAME);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
