@@ -11,6 +11,7 @@ public class ClienteGUI extends javax.swing.JFrame {
     private final NavegadorRemote nr;
     private String diretoriaAtual;
     private final String[] extensoesEditaveis;
+    private final String txtEditarDefault;
 
     public ClienteGUI(NavegadorRemote nr) {
         this.initComponents();
@@ -25,7 +26,8 @@ public class ClienteGUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
 
-        this.extensoesEditaveis = new String[]{"txt", "json", "py", "java", "sql", "md", "sh", "conf"};
+        this.extensoesEditaveis = new String[]{"txt", "json", "py", "java", "sql", "md", "sh", "conf", "php", "html", "css", "js"};
+        this.txtEditarDefault = "Selecione um dos seguintes ficheiros para editar:\n" + Arrays.toString(this.extensoesEditaveis);
         this.mudarDiretoria(this.diretoriaAtual);
     }
 
@@ -409,7 +411,7 @@ public class ClienteGUI extends javax.swing.JFrame {
             this.btnDelPasta.setEnabled(false);
             this.txtInformacao.setText("");
 
-            this.txtEditar.setText("");
+            this.txtEditar.setText(this.txtEditarDefault);
             this.txtEditar.setEnabled(false);
             this.listFicheiros.requestFocus();
         } catch (RemoteException ex) {
@@ -425,7 +427,7 @@ public class ClienteGUI extends javax.swing.JFrame {
         this.btnSalvar.setEnabled(false);
         this.btnDelPasta.setEnabled(false);
         this.txtEditar.setEnabled(false);
-        this.txtEditar.setText("");
+        this.txtEditar.setText(this.txtEditarDefault);
 
         String[] sp = nome.split("\\.");
         if (sp.length <= 1) {
@@ -453,7 +455,7 @@ public class ClienteGUI extends javax.swing.JFrame {
         this.btnSalvar.setEnabled(false);
         this.btnDelFicheiro.setEnabled(false);
         this.txtEditar.setEnabled(false);
-        this.txtEditar.setText("");
+        this.txtEditar.setText(this.txtEditarDefault);
         this.txtInformacao.setText("");
     }
 
