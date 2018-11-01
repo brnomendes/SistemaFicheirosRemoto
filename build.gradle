@@ -32,6 +32,7 @@ task server(type: JavaExec) {
     description = 'Aplicação do servidor'
     classpath = sourceSets.main.runtimeClasspath
     main = 'pt.ipb.sd.servidor.Servidor'
+    ext.registryAddress = project.hasProperty('registryAddress') ? registryAddress : ""
     args registryAddress
 }
 
@@ -39,5 +40,6 @@ task client(type: JavaExec) {
     description = 'Aplicação do cliente'
     classpath = sourceSets.main.runtimeClasspath
     main = 'pt.ipb.sd.cliente.Cliente'
+    ext.registryAddress = project.hasProperty('registryAddress') ? registryAddress : ""
     args registryAddress
 }
