@@ -28,7 +28,7 @@ public class Cliente {
         }
 
         try {
-            LocateRegistry.getRegistry(PORT);
+            LocateRegistry.getRegistry(args[0], PORT);
             SessaoRemote sessao = (SessaoRemote) Naming.lookup(NAME);
             NavegadorRemote nr = sessao.login();
 
