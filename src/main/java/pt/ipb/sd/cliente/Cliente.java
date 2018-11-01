@@ -1,10 +1,9 @@
 package pt.ipb.sd.cliente;
 
-import java.net.MalformedURLException;
-import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 
 import pt.ipb.sd.interfaces.NavegadorRemote;
 import pt.ipb.sd.interfaces.SessaoRemote;
@@ -28,13 +27,13 @@ public class Cliente {
         }
 
         try {
-            LocateRegistry.getRegistry(args[0], PORT);
-            SessaoRemote sessao = (SessaoRemote) Naming.lookup(NAME);
+            Registry registry = LocateRegistry.getRegistry(args[0], PORT);
+            SessaoRemote sessao = (SessaoRemote) registry.lookup(NAME);
             NavegadorRemote nr = sessao.login();
 
             new ClienteGUI(nr).setVisible(true);
 
-        } catch (RemoteException | MalformedURLException | NotBoundException e) {
+        } catch (RemoteException | NotBoundException e) {
             e.printStackTrace();
         }
     }
