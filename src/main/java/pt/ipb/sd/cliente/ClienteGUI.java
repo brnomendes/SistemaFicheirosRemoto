@@ -1,6 +1,7 @@
 package pt.ipb.sd.cliente;
 
 import java.rmi.RemoteException;
+import java.util.Arrays;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import pt.ipb.sd.interfaces.NavegadorRemote;
@@ -393,6 +394,7 @@ public class ClienteGUI extends javax.swing.JFrame {
             String[] ficheiros = this.nr.ls();
             ((DefaultListModel) this.listFicheiros.getModel()).removeAllElements();
             if (ficheiros != null) {
+                Arrays.sort(ficheiros);
                 for (String ficheiro : ficheiros) {
                     if (!ficheiro.startsWith(".")) {
                         ((DefaultListModel) this.listFicheiros.getModel()).addElement(ficheiro);
